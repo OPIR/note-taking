@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { NoteRouter } from "./note/note-routes";
-import path from "path";
-import verifyToken from "./auth/auth-middleware";
+import { AuthRouter } from "./auth/auth-routes";
+import { verifyToken } from "./auth/auth-middleware";
 
 const app = express();
 
@@ -21,7 +21,10 @@ router.get("/", (req, res) => {
 
 // Init Note routes
 const noteRouter = new NoteRouter().router;
-app.use("/note", verifyToken, noteRouter);
+const authRouter = new AuthRouter().router;
+
+app.use("/api/note", verifyToken, noteRouter);
+app.use("/api/auth/", authRouter);
 
 const port = 3000;
 

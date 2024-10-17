@@ -1,11 +1,12 @@
 import express from "express";
-import { NoteController } from "./auth-controller";
+import { AuthController } from "./auth-controller";
 
-export class NoteRouter {
-  private ctrl = new NoteController();
+export class AuthRouter {
+  private ctrl = new AuthController();
   public router: express.Router = express.Router();
 
   constructor() {
-    this.router.get("/", this.ctrl.getAllMyNotes);
+    this.router.post("/sign-in", this.ctrl.signIn);
+    this.router.post("/sign-up", this.ctrl.signUp);
   }
 }
