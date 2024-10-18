@@ -11,7 +11,7 @@ export async function initDBConnection(): Promise<void> {
   try {
     db = client.db(DB_NAME);
   } catch (err) {
-    console.log("Connecting to mongo failed. Reason:", err);
+    console.error("Connecting to mongo failed. Reason:", err);
   }
 
   await mongoose
@@ -20,6 +20,6 @@ export async function initDBConnection(): Promise<void> {
       console.log("Connected to MongoDB");
     })
     .catch((err) => {
-      console.log("Not connected to MongoDB:", err);
+      console.error("Not connected to MongoDB:", err);
     });
 }

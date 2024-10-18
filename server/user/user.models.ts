@@ -23,7 +23,7 @@ const userSchemaDefinition = {
 
 export type IUser = InferRawDocType<typeof userSchemaDefinition>;
 
-export const UserSchema: Schema = new Schema<IUser>(userSchemaDefinition);
+const UserSchema: Schema = new Schema<IUser>(userSchemaDefinition);
 
 UserSchema.pre("save", async function (next: NextFunction) {
   const user = this;
@@ -33,4 +33,4 @@ UserSchema.pre("save", async function (next: NextFunction) {
   next();
 });
 
-export const User = mongoose.model("User", UserSchema);
+export const Users = mongoose.model("User", UserSchema);

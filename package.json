@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "build": "npm -tsc",
-    "build-w": "npm -tsc -w",
+    "build": "npx tsc",
+    "build-w": "npx tsc -w",
     "start": "npx tsc && node dist/index.js"
   },
   "author": "Hristian Parushev",
