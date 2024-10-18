@@ -1,20 +1,41 @@
+import { ObjectId } from "mongodb";
 import { IRequest, IResponse } from "../core/core.models";
-import { INote, NoteSchema } from "./note.models";
+import { INote, Notes } from "./note.models";
 import mongoose from "mongoose";
 
 export class NoteController {
-  private Notes = mongoose.model("Note", NoteSchema);
-
   public async getAllMyNotes(req: IRequest, res: IResponse): Promise<void> {
-    const notes = await this.Notes.find<INote>();
-    console.log(res);
+    try {
+      const notes = await Notes.find<INote>({
+        authorId: req.user.id,
+      });
+      res.json(notes);
+    } catch (err) {
+      console.error(err);
+      res.status(err.status || 500).send(err.message);
+    }
+  }
 
-    res.json(notes);
+  public async getNoteById(req: IRequest, res: IResponse): Promise<void> {
+    try {
+      const note = await Notes.findOne<INote>({
+        _id: req.params.noteId,
+        authorId: req.user.id,
+      });
+      res.json(note);
+    } catch (err) {
+      console.error(err);
+      res.status(err.status || 500).send(err.message);
+    }
   }
 
   public async createNote(req: IRequest, res: IResponse): Promise<void> {
-    const note = this.Notes.create();
-
-    res.json(note);
+    try {
+      const note = await Notes.create(req.body);
+      res.json(note);
+    } catch (err) {
+      console.error(err);
+      res.status(err.status || 500).send(err.message);
+    }
   }
 }

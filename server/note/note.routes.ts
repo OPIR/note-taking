@@ -6,6 +6,9 @@ export class NoteRouter {
   public router: express.Router = express.Router();
 
   constructor() {
-    // this.router.get("/", this.ctrl.getAllMyNotes);
+    this.router.get("/", this.ctrl.getAllMyNotes);
+    this.router.get("/:noteId", this.ctrl.getNoteById);
+
+    this.router.post("/", this.ctrl.createNote);
   }
 }

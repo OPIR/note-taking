@@ -9,6 +9,6 @@ const noteSchemaDefinition = {
 
 export type INote = InferRawDocType<typeof noteSchemaDefinition>;
 
-export const NoteSchema: Schema = new Schema<INote>(noteSchemaDefinition);
+const NoteSchema: Schema = new Schema<INote>(noteSchemaDefinition);
 
-export const Note = mongoose.model("Note", NoteSchema);
+export const Notes = mongoose.model("Note", NoteSchema);
