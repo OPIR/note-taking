@@ -2,17 +2,16 @@ import mongoose from "mongoose";
 import { IUser, UserSchema } from "../user/user.models";
 import { generateToken } from "./auth-middleware";
 import bcrypt from "bcrypt";
-import { Request, Response, NextFunction } from "express";
 import { WithId } from "mongodb";
+import { IRequest, IResponse } from "../core/core.models";
 
 export class AuthController {
-  public async signIn(req: Request, res: Response): Promise<void> {
+  public async signIn(req: IRequest, res: IResponse): Promise<void> {
     const User = mongoose.model("User", UserSchema);
     const user = await User.findOne<WithId<IUser>>({
       email: req.body.email,
     });
 
-    console.log(user);
     if (bcrypt.compareSync(req.body.password, user.password)) {
       res.send(generateToken(user));
     } else {
@@ -20,7 +19,7 @@ export class AuthController {
     }
   }
 
-  public async signUp(req: Request, res: Response): Promise<void> {
+  public async signUp(req: IRequest, res: IResponse): Promise<void> {
     const User = mongoose.model("User", UserSchema);
 
     try {
