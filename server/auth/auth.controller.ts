@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { IUser, UserSchema } from "../user/user.models";
-import { generateToken } from "./auth-middleware";
+import { generateToken } from "./auth-middleware.utils";
 import bcrypt from "bcrypt";
 import { WithId } from "mongodb";
 import { IRequest, IResponse } from "../core/core.models";

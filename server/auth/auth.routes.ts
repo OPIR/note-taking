@@ -1,5 +1,5 @@
 import express from "express";
-import { AuthController } from "./auth-controller";
+import { AuthController } from "./auth.controller";
 
 export class AuthRouter {
   private ctrl = new AuthController();

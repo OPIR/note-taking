@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { NoteRouter } from "./note/note-routes";
-import { AuthRouter } from "./auth/auth-routes";
-import { verifyToken } from "./auth/auth-middleware";
+import { NoteRouter } from "./note/note.routes";
+import { AuthRouter } from "./auth/auth.routes";
+import { verifyToken } from "./auth/auth-middleware.utils";
 import { initDBConnection } from "./db/db-connector";
 
 const app = express();
