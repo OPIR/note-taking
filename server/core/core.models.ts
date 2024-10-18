@@ -1,13 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 
+export interface IRequestUser {
+  email: string;
+  id: string;
+}
+
 /**
  * Extending Request(from express) to be able to attach user id & email when decoding the token.
  */
 export interface IRequest extends Request {
-  user: {
-    email: string;
-    id: string;
-  };
+  user: IRequestUser;
 }
 
 export type IResponse = Response;

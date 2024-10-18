@@ -1,8 +1,8 @@
 import express from "express";
-import { AuthController } from "./auth.controller";
+import { UserController } from "./user.controller";
 
-export class AuthRouter {
-  private ctrl = new AuthController();
+export class UserRouter {
+  private ctrl = new UserController();
   public router: express.Router = express.Router();
 
   constructor() {

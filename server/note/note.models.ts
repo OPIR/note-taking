@@ -9,6 +9,11 @@ const noteSchemaDefinition = {
 
 export type INote = InferRawDocType<typeof noteSchemaDefinition>;
 
+export interface INoteMatcher {
+  authorId: string;
+  _id?: string;
+}
+
 const NoteSchema: Schema = new Schema<INote>(noteSchemaDefinition);
 
 export const Notes = mongoose.model("Note", NoteSchema);

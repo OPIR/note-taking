@@ -9,17 +9,23 @@ export function verifyToken(
   req: IRequest,
   res: IResponse,
   next: INextFunction
-) {
+): void {
   const token = req.header("Authorization");
-  if (!token) return res.status(401).json({ error: "Missing token" });
+  if (!token) {
+    res.status(401).json({ error: "Missing token" });
+    return;
+  }
+
   try {
     const decoded = jwt.verify(
       token.replace("Bearer ", ""),
       SECRET
     ) as JwtPayload;
     const now = Date.now() / 1000;
-    if (decoded.exp < now)
-      return res.status(401).send("Your token has expired!");
+    if (decoded.exp < now) {
+      res.status(401).send("Your token has expired!");
+      return;
+    }
     if (decoded.userId && decoded.email) {
       req.user = {
         id: decoded.userId,

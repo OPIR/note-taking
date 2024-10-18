@@ -1,28 +1,35 @@
-import { ObjectId } from "mongodb";
 import { IRequest, IResponse } from "../core/core.models";
-import { INote, Notes } from "./note.models";
-import mongoose from "mongoose";
+import { NoteHelper } from "./note.helper";
+import { INote } from "./note.models";
 
 export class NoteController {
+  private noteHelper: NoteHelper;
+
+  constructor() {
+    this.noteHelper = new NoteHelper();
+  }
+
   public async getAllMyNotes(req: IRequest, res: IResponse): Promise<void> {
-    try {
-      const notes = await Notes.find<INote>({
-        authorId: req.user.id,
-      });
-      res.json(notes);
-    } catch (err) {
-      console.error(err);
-      res.status(err.status || 500).send(err.message);
-    }
+    this.noteHelper.getMyNotes(req.user).then(
+      (notes: INote[]) => {
+        res.send(notes);
+      },
+      (err) => {
+        res.status(err.status || 500).send(err.message);
+      }
+    );
   }
 
   public async getNoteById(req: IRequest, res: IResponse): Promise<void> {
     try {
-      const note = await Notes.findOne<INote>({
-        _id: req.params.noteId,
-        authorId: req.user.id,
-      });
-      res.json(note);
+      this.noteHelper.getMyNotes(req.user, req.params.noteId).then(
+        (notes: INote[]) => {
+          res.send(notes);
+        },
+        (err) => {
+          res.status(err.status || 500).send(err.message);
+        }
+      );
     } catch (err) {
       console.error(err);
       res.status(err.status || 500).send(err.message);
@@ -31,7 +38,7 @@ export class NoteController {
 
   public async createNote(req: IRequest, res: IResponse): Promise<void> {
     try {
-      const note = await Notes.create(req.body);
+      const note = await this.noteHelper.createNote(req.body);
       res.json(note);
     } catch (err) {
       console.error(err);
