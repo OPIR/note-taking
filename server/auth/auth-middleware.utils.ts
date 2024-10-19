@@ -5,6 +5,14 @@ import { WithId } from "mongodb";
 
 const SECRET = "my_cat_name_is_Lora";
 
+/**
+ *
+ * Verifying that there is token in the headers("Authorization") and is valid one.
+ *
+ * If token persist then decode it and set user id and email to 'req.user' object,
+ * which is used later to filter results by user id.
+ * @returns
+ */
 export function verifyToken(
   req: IRequest,
   res: IResponse,
@@ -40,6 +48,12 @@ export function verifyToken(
   }
 }
 
+/**
+ * Generates jwt token, which is valid for 2 days.
+ * Payload of the token are user id and email.
+ *
+ * @returns string
+ */
 export function generateToken(user: WithId<IUser>): string {
   if (!user._id || !user.email) {
     return "-1";

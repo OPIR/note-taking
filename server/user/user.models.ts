@@ -21,7 +21,7 @@ const userSchemaDefinition = {
   password: {
     type: String,
     required: true,
-    minLength: 8,
+    minLength: 8, // Verify that password is at least 8 characters
     validate: {
       validator: isPasswordStrong,
       message: `Password isn't strong enough! Please make sure that password contains at least:
@@ -40,6 +40,7 @@ const UserSchema: Schema = new Schema<IUser>(userSchemaDefinition);
 UserSchema.pre("save", async function (next: NextFunction) {
   const user = this;
   if (user.isNew || user.isModified("password")) {
+    // encrypting the password when creating new user or when password is updated
     user.password = await bcrypt.hash(user.password as string, saltRounds);
   }
   next();

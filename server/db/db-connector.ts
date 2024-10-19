@@ -1,22 +1,18 @@
-import { Db, MongoClient } from "mongodb";
 import mongoose from "mongoose";
 
 const DB_NAME = "bright-carbon";
 
 const uri = "mongodb://localhost:27017";
 
+/**
+ * Initialising db connection. In case there is problem connecting to the mongoDb it will log error in the console.
+ *
+ * @returns Promise<void>
+ */
 export async function initDBConnection(): Promise<void> {
-  const client = await MongoClient.connect(uri);
-  let db: Db;
-  try {
-    db = client.db(DB_NAME);
-  } catch (err) {
-    console.error("Connecting to mongo failed. Reason:", err);
-  }
-
   await mongoose
     .connect(`${uri}/${DB_NAME}`)
-    .then((_db) => {
+    .then(() => {
       console.log("Connected to MongoDB");
     })
     .catch((err) => {
