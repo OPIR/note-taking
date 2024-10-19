@@ -2,7 +2,6 @@ import { DeleteResult } from "mongodb";
 import { INote, INoteMatcher, Notes } from "./note.models";
 
 export class NoteHelper {
-  constructor() {}
   public async getNotes(userId: string, noteId?: string): Promise<INote[]> {
     return new Promise(async (resolve, reject) => {
       try {

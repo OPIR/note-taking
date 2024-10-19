@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 router.get("/", (req: IRequest, res: IResponse) => {
-  res.send("Hello from unprotected route!");
+  res.send("Hello! \n This is note-task.");
 });
 
 // Set routes
