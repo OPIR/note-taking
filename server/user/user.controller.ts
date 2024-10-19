@@ -27,7 +27,7 @@ export class UserController {
       res.send(generateToken(user));
     } catch (err) {
       console.error(err);
-      res.status(401).send(err);
+      res.status(err.status || 500).send(err.message);
     }
   }
 }

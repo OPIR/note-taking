@@ -1,7 +1,7 @@
 import mongoose, { InferRawDocType, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import { NextFunction } from "express";
-import { isValidEmail } from "../core/validator.utils";
+import { isPasswordStrong, isValidEmail } from "../core/validator.utils";
 
 const saltRounds = 8;
 
@@ -18,7 +18,19 @@ const userSchemaDefinition = {
       isAsync: false,
     },
   },
-  password: { type: String, required: true },
+  password: {
+    type: String,
+    required: true,
+    minLength: 8,
+    validate: {
+      validator: isPasswordStrong,
+      message: `Password isn't strong enough! Please make sure that password contains at least:
+      One digit.
+      One uppercase letter.
+      One lowercase letter.
+      One special character("!@#$%^&*()\-_+.").`,
+    },
+  },
 };
 
 export type IUser = InferRawDocType<typeof userSchemaDefinition>;
