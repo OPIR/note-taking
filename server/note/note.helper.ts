@@ -1,16 +1,13 @@
-import { IRequestUser } from "../core/core.models";
+import { DeleteResult } from "mongodb";
 import { INote, INoteMatcher, Notes } from "./note.models";
 
 export class NoteHelper {
   constructor() {}
-  public async getMyNotes(
-    user: IRequestUser,
-    noteId?: string
-  ): Promise<INote[]> {
+  public async getNotes(userId: string, noteId?: string): Promise<INote[]> {
     return new Promise(async (resolve, reject) => {
       try {
         let match: INoteMatcher = {
-          authorId: user.id,
+          authorId: userId,
         };
 
         if (noteId) match._id = noteId;
@@ -26,6 +23,29 @@ export class NoteHelper {
 
   public async createNote(newNote: INote) {
     const note = await Notes.create(newNote);
+
+    return note;
+  }
+
+  public async updateNote(noteId: string, newNote: INote, userId: string) {
+    let match: INoteMatcher = {
+      authorId: userId,
+      _id: noteId,
+    };
+    const note = await Notes.updateOne(match, { $set: newNote });
+
+    return note;
+  }
+
+  public async deleteNote(
+    noteId: string,
+    userId: string
+  ): Promise<DeleteResult> {
+    const match: INoteMatcher = {
+      authorId: userId,
+      _id: noteId,
+    };
+    const note = await Notes.deleteOne(match);
 
     return note;
   }

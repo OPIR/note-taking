@@ -21,5 +21,17 @@ export class NoteRouter {
       (req: IRequest, res: IResponse, next: INextFunction) =>
         this.ctrl.createNote(req, res)
     );
+
+    this.router.patch(
+      "/:noteId",
+      (req: IRequest, res: IResponse, next: INextFunction) =>
+        this.ctrl.updateNote(req, res)
+    );
+
+    this.router.delete(
+      "/:noteId",
+      (req: IRequest, res: IResponse, next: INextFunction) =>
+        this.ctrl.deleteNote(req, res)
+    );
   }
 }

@@ -21,12 +21,9 @@ router.get("/", (req: IRequest, res: IResponse) => {
   res.send("Hello from unprotected route!");
 });
 
-// Init Note routes
-const noteRouter = new NoteRouter().router;
-const authRouter = new UserRouter().router;
-
-app.use("/api/note", verifyToken, noteRouter);
-app.use("/api/auth/", authRouter);
+// Set routes
+app.use("/api/note", verifyToken, new NoteRouter().router);
+app.use("/api/auth", new UserRouter().router);
 
 const port = 3000;
 
