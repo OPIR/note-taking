@@ -7,13 +7,20 @@ export class NoteRouter {
   public router: express.Router = express.Router();
 
   constructor() {
-    this.router.get("/", (req: IRequest, res: IResponse, next: INextFunction) =>
-      this.ctrl.getAllMyNotes(req, res)
+    this.router.get(
+      "/my-notes",
+      (req: IRequest, res: IResponse, next: INextFunction) =>
+        this.ctrl.getMyNotes(req, res)
     );
     this.router.get(
       "/:noteId",
       (req: IRequest, res: IResponse, next: INextFunction) =>
         this.ctrl.getNoteById(req, res)
+    );
+    this.router.get(
+      "/user/:userId",
+      (req: IRequest, res: IResponse, next: INextFunction) =>
+        this.ctrl.getNotesByUserId(req, res)
     );
 
     this.router.post(

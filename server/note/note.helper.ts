@@ -20,6 +20,22 @@ export class NoteHelper {
       }
     });
   }
+  public async getUserNotes(userId: string): Promise<INote[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let match: INoteMatcher = {
+          authorId: userId,
+          isPublic: true,
+        };
+
+        const notes = await Notes.find<INote>(match);
+        return resolve(notes);
+      } catch (err) {
+        console.error(err);
+        reject(err.message);
+      }
+    });
+  }
 
   public async createNote(newNote: INote) {
     const note = await Notes.create(newNote);

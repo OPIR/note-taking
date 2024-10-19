@@ -9,7 +9,7 @@ export class NoteController {
     this.noteHelper = new NoteHelper();
   }
 
-  public async getAllMyNotes(req: IRequest, res: IResponse): Promise<void> {
+  public async getMyNotes(req: IRequest, res: IResponse): Promise<void> {
     this.noteHelper.getNotes(req.user.id).then(
       (notes: INote[]) => {
         res.send(notes);
@@ -23,6 +23,22 @@ export class NoteController {
   public async getNoteById(req: IRequest, res: IResponse): Promise<void> {
     try {
       this.noteHelper.getNotes(req.user.id, req.params.noteId).then(
+        (notes: INote[]) => {
+          res.send(notes);
+        },
+        (err) => {
+          res.status(err.status || 500).send(err.message);
+        }
+      );
+    } catch (err) {
+      console.error(err);
+      res.status(err.status || 500).send(err.message);
+    }
+  }
+
+  public async getNotesByUserId(req: IRequest, res: IResponse): Promise<void> {
+    try {
+      this.noteHelper.getUserNotes(req.params.userId).then(
         (notes: INote[]) => {
           res.send(notes);
         },
@@ -60,10 +76,10 @@ export class NoteController {
           req.params.noteId
         );
         res.json(updatedNote);
-      } else if (response.matchedCount > 1 && response.modifiedCount === 0) {
+      } else if (response.matchedCount > 0 && response.modifiedCount === 0) {
         res.send("Note isn't updated! Properties are the same.");
       } else if (response.matchedCount === 0) {
-        res.send(`Coudln't find document with id: ${req.params.noteId}`);
+        res.send(`Coudln't find note with id: ${req.params.noteId}`);
       } else {
         res.send("Something went wrong! Please contact admin for help.");
       }

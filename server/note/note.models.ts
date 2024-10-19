@@ -12,6 +12,7 @@ export type INote = InferRawDocType<typeof noteSchemaDefinition>;
 export interface INoteMatcher {
   authorId: string;
   _id?: string;
+  isPublic?: boolean;
 }
 
 const NoteSchema: Schema = new Schema<INote>(noteSchemaDefinition);
