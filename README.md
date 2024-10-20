@@ -1,11 +1,10 @@
 # note-taking
 
-Job interview task
+To run the project you need nodejs ^22.9 and mongodb 8
 
-First make sure that you have mongoDB running at: `port 27017`.
-
-1. Clone project from github repo.
-2. Run `npm install`
-3. Navigate to root folder of the project and execute: `npm run start`
+1. Make sure that you have mongoDB running at: `port 27017`.
+2. Clone the project from github repo.
+3. Navigate to root folder and run `npm install`
+4. Execute: `npm run start`
 
 As simple as that ;)
