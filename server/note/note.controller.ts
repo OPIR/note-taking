@@ -75,7 +75,7 @@ export class NoteController {
    */
   public async createNote(req: IRequest, res: IResponse): Promise<void> {
     try {
-      const note = await this.noteHelper.createNote(req.body);
+      const note = await this.noteHelper.createNote(req.body, req.user.id);
       res.json(note);
     } catch (err) {
       console.error(err);
