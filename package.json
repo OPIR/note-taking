@@ -7,6 +7,9 @@
     "build-w": "npx tsc -w",
     "start": "npx tsc && node dist/index.js"
   },
+  "engines": {
+    "node": "^22.9.0"
+  },
   "author": "Hristian Parushev",
   "license": "ISC",
   "devDependencies": {

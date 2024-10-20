@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-router.get("/", (req: IRequest, res: IResponse) => {
-  res.send("Hello! \n This is note-task server.");
+app.get("/", (req: IRequest, res: IResponse) => {
+  res.send("Hello! \n This is note-taking server.");
 });
 
 // Set routes

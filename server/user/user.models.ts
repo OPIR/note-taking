@@ -15,7 +15,6 @@ const userSchemaDefinition = {
     validate: {
       validator: isValidEmail,
       message: "{VALUE} is not a valid email",
-      isAsync: false,
     },
   },
   password: {

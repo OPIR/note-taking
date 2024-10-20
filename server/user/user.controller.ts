@@ -1,7 +1,5 @@
-import { IUser, Users } from "./user.models";
 import { generateToken } from "../auth/auth-middleware.utils";
 import bcrypt from "bcrypt";
-import { WithId } from "mongodb";
 import { IRequest, IResponse } from "../core/core.models";
 import { UserHelper } from "./user.helper";
 
